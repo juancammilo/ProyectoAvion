@@ -1,0 +1,10 @@
+    Cabeza avión 
+O     O     O     O     
+O     O     O     O     
+O     O     O     O     
+O     O     O     O     
+O     O     O     O     
+O     O     O     O     
+O     O     O     O     
+O     O     O     O     
+
