@@ -15,7 +15,9 @@ public class Principal {
         logica.avion1 = logica.create(logica.size1,logica.size11);
         logica.avion2 = logica.create(logica.size2,logica.size21);
         logica.avion3 = logica.create(logica.size3,logica.size31);
+        logica.datoss(ar);
         logica.pedirDatos(ar);
+        
     }
     public static void main(String[] ar){
         Principal m = new Principal(ar);

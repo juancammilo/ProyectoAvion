@@ -21,12 +21,13 @@ public class Logica {
     int totalventas = 0;
     int opcion=0;
     int n;
+    int c1=0;
     int val=0;
     int size1=10;
     int size11=6;
     int size2=8;
     int size21=4;
-    int size3=5;
+    int size3=1;
     int size31=2;
     char avion1 [][] = new char [size1][size11];
     char avion2 [][] = new char [size2][size21];
@@ -39,7 +40,7 @@ public class Logica {
     String txt_Cad;
     String txtRecibo;
     String cadena;
-    
+    int cupoa=0;
     Map<String, Persona>personas = new HashMap<>();
     
     public static Logica archivador = new Logica();
@@ -142,8 +143,7 @@ public class Logica {
     public void imprimir2 (String ar[], String Vuelo){
         mostrarTexto2(String.valueOf(n), Vuelo);
     }
-    public void pedirDatos(String ar[]){
-        boolean ban=true;
+    public void datoss(String ar[]){
         int numero;
         JOptionPane.showMessageDialog(null,"Bienvenido a avianca");
         String cedula = JOptionPane.showInputDialog("\n Digite cedula \n");
@@ -152,7 +152,7 @@ public class Logica {
         }catch(NumberFormatException e){ 
             numero=-1; 
             JOptionPane.showMessageDialog (null, "El dato digitado no es un número", "Error", JOptionPane.ERROR_MESSAGE); 
-            pedirDatos(ar); 
+            datoss(ar); 
         } 
         String nombrePersona = JOptionPane.showInputDialog("\n Digite nombre \n");
         String apellidoPersona = JOptionPane.showInputDialog("\n Digite apellido \n");
@@ -160,7 +160,7 @@ public class Logica {
         int añoPersona = (int) Integer.parseInt(JOptionPane.showInputDialog("\n Digite año de nacimiento \n"));
         if(añoPersona>2001){
             JOptionPane.showMessageDialog(null,"error año invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            pedirDatos(ar); 
+            datoss(ar); 
         }
         String mesPersona = JOptionPane.showInputDialog("\n Digite mes de nacimiento, digite: \n" 
                 + "    enero            febrero \n"
@@ -172,7 +172,7 @@ public class Logica {
         
         if(!"enero".equals(mesPersona) && !"febrero".equals(mesPersona) && !"marzo".equals(mesPersona) && !"abril".equals(mesPersona) && !"mayo".equals(mesPersona) && !"junio".equals(mesPersona) && !"julio".equals(mesPersona) && !"agosto".equals(mesPersona) && !"septiembre".equals(mesPersona) && !"octubre".equals(mesPersona) && !"noviembre".equals(mesPersona) && !"diciembre".equals(mesPersona)){
             JOptionPane.showMessageDialog(null,"error mes invalido invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            pedirDatos(ar); 
+            datoss(ar); 
         }
         int diaPersona = (int) Integer.parseInt(JOptionPane.showInputDialog("\n Digite dia de nacimiento \n"));
         if(diaPersona > 31){
@@ -182,21 +182,48 @@ public class Logica {
         personas.put(cedula, new Persona(cedula, nombrePersona, apellidoPersona, diaPersona, mesPersona, añoPersona));
 
         
+    }
+    public void pedirDatos(String ar[]){
+        boolean ban=true;
         opcion = (int) Integer.parseInt(JOptionPane.showInputDialog("\n Seleccione avion \n" 
                 + "1. Avion grande mixto \n"
                 + "2. Avion Comercial \n"
-                + "3. Avion VIP \n"));
+                + "3. Avion VIP \n"
+                + "4. salir \n"));
         if((opcion != 1 && opcion != 2)&& opcion != 3){
-            JOptionPane.showMessageDialog(null,"error");
-            pedirDatos(ar);    
+            if(opcion == 4){
+                System.exit(0);
+            }else{
+                JOptionPane.showMessageDialog(null,"error");
+                pedirDatos(ar);
+            }
             
         }else{
             n = Integer.parseInt(JOptionPane.showInputDialog("Cuantos boletos desea"));
-            if (n > 5 ){
-                JOptionPane.showMessageDialog(null, "Solo puede comprar un minimo de 5 boletos a la vez", "Error", JOptionPane.ERROR_MESSAGE); 
+            if(opcion == 1){
+                cupoa=0;
+                cupo(avion1);
+                c1 = (size1 * size11)-cupoa;
+            }
+            if(opcion == 2){
+                cupoa=0;
+                cupo(avion2);
+                c1 = (size2 * size21)-cupoa;
+            }
+            if(opcion == 3){
+                cupoa=0;
+                cupo(avion3);
+                c1 = (size3 * size31)-cupoa;
+            }
+            if (n > c1){
+                JOptionPane.showMessageDialog(null, "Solo estan disponibles: "+c1+" sillas en este avion"+"\nSeleccione otro si desea", "Error", JOptionPane.ERROR_MESSAGE); 
                 pedirDatos(ar);
             }
-            else{
+            if (n > 5){
+                JOptionPane.showMessageDialog(null, "Solo puede comprar un minimo de 5 boletos a la vez", "Error", JOptionPane.ERROR_MESSAGE); 
+                pedirDatos(ar);
+               
+            }else{
                 int a=n;
                 switch (opcion){
                     case 1:{
@@ -228,16 +255,27 @@ public class Logica {
                                     }
                                     break; 
                                 case 3:
-                                    pedirDatos(ar);
+                                    if(a==0){
+                                        datoss(ar);
+                                        pedirDatos(ar);
+                                    }
+                                    else{
+                                        JOptionPane.showMessageDialog(null, "seleccione los asientos");
+                                    }
                                     break; 
                                 case 4:
-                                    if(val==0){
-                                        imprimir(ar, vuelo1);
-                                        archivador.txt_imprimirecibovuelo1();
-                                    }else{
-                                        imprimir2(ar, vuelo1);
-                                        archivador.txt_imprimirecibovuelo1();
-                                    }                                    
+                                    if(a==0){
+                                        if(val==0){
+                                            imprimir(ar, vuelo1);
+                                            archivador.txt_imprimirecibovuelo1();
+                                        }else{
+                                            imprimir2(ar, vuelo1);
+                                            archivador.txt_imprimirecibovuelo1();
+                                        }     
+                                    }
+                                    else{
+                                        JOptionPane.showMessageDialog(null, "seleccione los asientos");
+                                    }
                                     break; 
                                 case 5:
                                     System.out.println("totalventas: " + totalventas);
@@ -277,11 +315,22 @@ public class Logica {
                                     }
                                     break;
                                 case 3:
-                                    pedirDatos(ar);
+                                    if(a==0){
+                                        datoss(ar);
+                                        pedirDatos(ar);
+                                    }
+                                    else{
+                                        JOptionPane.showMessageDialog(null, "seleccione los asientos");
+                                    }
                                     break; 
                                 case 4:
-                                    imprimir(ar, vuelo2);
-                                    archivador.txt_imprimirecibovuelo2();
+                                    if(a==0){
+                                        imprimir(ar, vuelo2);
+                                        archivador.txt_imprimirecibovuelo2();
+                                    }
+                                    else{
+                                        JOptionPane.showMessageDialog(null, "seleccione los asientos");
+                                    }
                                     break; 
                                 case 5:
                                     System.out.println("totalventas: " + totalventas);
@@ -321,11 +370,22 @@ public class Logica {
                                     }
                                     break;
                                 case 3:
-                                    pedirDatos(ar);
+                                    if(a==0){
+                                        datoss(ar);
+                                        pedirDatos(ar);
+                                    }
+                                    else{
+                                        JOptionPane.showMessageDialog(null, "seleccione los asientos");
+                                    }
                                     break; 
                                 case 4:
-                                    imprimir2(ar, vuelo3);
-                                    archivador.txt_imprimirecibovuelo3();
+                                    if(a==0){
+                                        imprimir2(ar, vuelo3);
+                                        archivador.txt_imprimirecibovuelo3();
+                                    }
+                                    else{
+                                        JOptionPane.showMessageDialog(null, "seleccione los asientos");
+                                    }
                                     break; 
                                 case 5:
                                     System.out.println("totalventas: " + totalventas);
@@ -445,5 +505,16 @@ public class Logica {
         totalventas = totalventas + totalPagar; 
         
         
+    }
+    
+    public void cupo(char mat[][]){
+        for (int i = 0; i < mat.length ; i++)  {
+            for (int j = 0; j < mat[i].length; j++) {
+                if(mat [i][j] == 'X'){
+                    cupoa = cupoa + 1;
+                }
+            }
+        }
+        System.out.println("cupo "+ cupoa);
     }
 }
