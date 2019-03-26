@@ -217,10 +217,12 @@ public class Logica {
                                     if (a != 0 ){
                                         JOptionPane.showMessageDialog(null, "las primeras 3 filas son VIP");
                                         JOptionPane.showMessageDialog(null, "Cantidad de filas: " + size1 + "\nCantidad de columnas: "+ size11);
-                                        JOptionPane.showMessageDialog(null, "Precio comercial: " + costoComercial);
-                                        escogerlugar2(avion1);
-                                        archivador.txt_vuelo1();
-                                        a = a-1;
+                                        JOptionPane.showMessageDialog(null, "Precio comercial: " + costoComercial + "Costo VIP: "+ costoVIP);
+                                        while (a != 0){  
+                                            escogerlugar2(avion1);
+                                            archivador.txt_vuelo1();
+                                            a = a-1;
+                                        }
                                     }else{
                                         JOptionPane.showMessageDialog(null, "Ya selecciono la cantidad de boletos ingresada"); 
                                     }
@@ -265,9 +267,11 @@ public class Logica {
                                     JOptionPane.showMessageDialog(null, "Precio comercial: " + costoComercial);
                                     JOptionPane.showMessageDialog(null, "Cantidad de filas: " + size2 + "\nCantidad de columnas: "+ size21);
                                     if (a != 0 ){
-                                        escogerlugar1(avion2);
-                                        archivador.txt_vuelo2();
-                                        a = a-1;
+                                        while (a != 0){  
+                                            escogerlugar1(avion2);
+                                            archivador.txt_vuelo2();
+                                            a = a-1;
+                                        }
                                     }else{
                                         JOptionPane.showMessageDialog(null, "Ya selecciono la cantidad de boletos ingresada"); 
                                     }
@@ -307,9 +311,11 @@ public class Logica {
                                     JOptionPane.showMessageDialog(null, "Costo VIP: "+ costoVIP);
                                     JOptionPane.showMessageDialog(null, "Cantidad de filas: " + size3 + "\nCantidad de columnas: "+ size31);
                                     if (a != 0 ){
-                                        escogerlugar1(avion3);
-                                        archivador.txt_vuelo3();
-                                        a = a-1;
+                                        while (a != 0){  
+                                            escogerlugar1(avion3);
+                                            archivador.txt_vuelo3();
+                                            a = a-1;
+                                        }
                                     }else{
                                         JOptionPane.showMessageDialog(null, "Ya selecciono la cantidad de boletos ingresada"); 
                                     }
