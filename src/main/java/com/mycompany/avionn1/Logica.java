@@ -32,7 +32,7 @@ public class Logica {
     String vuelo1 ="Avion Grande mixto";
     String vuelo2 ="Avion Mediano comercial";
     String vuelo3 ="Avioneta VIP";
-    int costoComercial = 200000;
+    int costoComercial =  200000;
     int costoVIP = 1000000;
     String txt_Cad;
     String txtRecibo;
@@ -161,12 +161,12 @@ public class Logica {
             pedirDatos(ar); 
         }
         String mesPersona = JOptionPane.showInputDialog("\n Digite mes de nacimiento, digite: \n" 
-                + "    enero         febrero \n"
-                + "    marzo         abril \n"
-                + "    mayo          junio"
-                + "    julio         agosto \n"
-                + "    septiembre    octubre \n"
-                + "    noviembre     diciembre \n");
+                + "   enero\n   febrero \n"
+                + "   marzo\n   abril \n"
+                + "   mayo\n   junio\n"
+                + "   julio\n   agosto \n"
+                + "   septiembre\n   octubre \n"
+                + "   noviembre\n   diciembre \n");
         
         if(!"enero".equals(mesPersona) && !"febrero".equals(mesPersona) && !"marzo".equals(mesPersona) && !"abril".equals(mesPersona) && !"mayo".equals(mesPersona) && !"junio".equals(mesPersona) && !"julio".equals(mesPersona) && !"agosto".equals(mesPersona) && !"septiembre".equals(mesPersona) && !"octubre".equals(mesPersona) && !"noviembre".equals(mesPersona) && !"diciembre".equals(mesPersona)){
             JOptionPane.showMessageDialog(null,"error mes invalido invalido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -340,7 +340,7 @@ public class Logica {
     }
     
     public void displayavionn(char mat[][]) {
-        String cad = "    Cabeza avión \n";
+        String cad = "       Cabeza avión \n";
         for (int i = 0; i < mat.length ; i++)  {
             for (int j = 0; j < mat[i].length; j++) {
                 cad +=  mat[i][j] + "     ";
@@ -390,21 +390,19 @@ public class Logica {
     }
     
     public void mostrarTexto(String cad, String Vuelo) {
-        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total:"+costoComercial*n);
+        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total: $"+costoComercial*n);
         cantidad =cad;
         vuelo1 =Vuelo;
-        totalPagar =costoComercial*n;
+        totalPagar =(costoComercial*n);
         txtRecibo =cantidad +","+Vuelo+","+totalPagar;
-        totalventas = totalventas + totalPagar; 
+        totalventas = (totalventas + totalPagar); 
     }
     public void mostrarTexto2(String cad, String Vuelo) {
-        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total:"+costoVIP*n);
+        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total: $"+costoVIP*n);
         cantidad =cad;
         vuelo1 =Vuelo;
         totalPagar =costoVIP*n;
         txtRecibo =cantidad +","+Vuelo+","+totalPagar;
-        totalventas = totalventas + totalPagar; 
-        
-        
+        totalventas = (totalventas + totalPagar);
     }
 }
