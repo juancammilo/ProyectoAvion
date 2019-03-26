@@ -7,7 +7,7 @@ package com.mycompany.avionn1;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Date;
 /**
  *
  * @author gabrielccgg
@@ -20,50 +20,25 @@ public class Persona {
     
     private String apellido;
     
-    int dia;
-    
-    private String mes;
-    
-    int año;
-    
+    Date fecha_nacimiento = new Date();
     
     Map<Integer, Persona> mapa;
 
-    public Persona(String cedula, String nombre, String apellido, int dia, String mes, int año) {
+    public Persona(String cedula, String nombre, String apellido, Date fecha_nacimiento) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.dia = dia;
-        this.mes = mes;
-        this.año = año;
+        this.fecha_nacimiento = fecha_nacimiento;
         this.mapa = mapa;
     }
 
-    public int getDia() {
-        return dia;
+    public Date getFecha_nacimiento() {
+        return fecha_nacimiento;
     }
 
-    public void setDia(int dia) {
-        this.dia = dia;
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
     }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public int getAño() {
-        return año;
-    }
-
-    public void setAño(int año) {
-        this.año = año;
-    }
-
-   
 
     public String getCedula() {
         return cedula;

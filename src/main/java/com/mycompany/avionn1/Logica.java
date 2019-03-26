@@ -8,10 +8,14 @@ package com.mycompany.avionn1;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 import java.io.*;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Scanner;
-
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author gabrielccgg
@@ -27,7 +31,7 @@ public class Logica {
     int size11=6;
     int size2=8;
     int size21=4;
-    int size3=1;
+    int size3=5;
     int size31=2;
     char avion1 [][] = new char [size1][size11];
     char avion2 [][] = new char [size2][size21];
@@ -150,38 +154,66 @@ public class Logica {
         try { 
             numero = Integer.parseInt(cedula); 
         }catch(NumberFormatException e){ 
-            numero=-1; 
+            //numero=-1; 
             JOptionPane.showMessageDialog (null, "El dato digitado no es un número", "Error", JOptionPane.ERROR_MESSAGE); 
             datoss(ar); 
         } 
         String nombrePersona = JOptionPane.showInputDialog("\n Digite nombre \n");
         String apellidoPersona = JOptionPane.showInputDialog("\n Digite apellido \n");
         
-        int añoPersona = (int) Integer.parseInt(JOptionPane.showInputDialog("\n Digite año de nacimiento \n"));
-        if(añoPersona>2001){
-            JOptionPane.showMessageDialog(null,"error año invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            datoss(ar); 
+        String auxDia = JOptionPane.showInputDialog("\n Digite dia de nacimiento \n");
+        int diaPersona = 0;
+        try {
+            diaPersona = Integer.parseInt(auxDia); 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"error dia invalido", "Error", JOptionPane.ERROR_MESSAGE);
+             datoss(ar); 
+        }finally{
+            if(diaPersona > 31){
+                JOptionPane.showMessageDialog(null,"error dia invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                datoss(ar); 
+            }
         }
-        String mesPersona = JOptionPane.showInputDialog("\n Digite mes de nacimiento, digite: \n" 
-                + "    enero            febrero \n"
-                + "    marzo            abril \n"
-                + "    mayo             junio \n"
-                + "    julio            agosto \n"
-                + "    septiembre       octubre \n"
-                + "    noviembre        diciembre \n");
         
-        if(!"enero".equals(mesPersona) && !"febrero".equals(mesPersona) && !"marzo".equals(mesPersona) && !"abril".equals(mesPersona) && !"mayo".equals(mesPersona) && !"junio".equals(mesPersona) && !"julio".equals(mesPersona) && !"agosto".equals(mesPersona) && !"septiembre".equals(mesPersona) && !"octubre".equals(mesPersona) && !"noviembre".equals(mesPersona) && !"diciembre".equals(mesPersona)){
+        String auxMes= JOptionPane.showInputDialog("\n Digite mes de nacimiento \n");
+        int mesPersona = 0;
+        try {
+            mesPersona = Integer.parseInt(auxMes);
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null,"error mes invalido invalido", "Error", JOptionPane.ERROR_MESSAGE);
             datoss(ar); 
+        }finally{
+            if((mesPersona < 1 ) ||(mesPersona > 12 )){
+                JOptionPane.showMessageDialog(null,"error mes invalido invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                datoss(ar); 
+            }
         }
-        int diaPersona = (int) Integer.parseInt(JOptionPane.showInputDialog("\n Digite dia de nacimiento \n"));
-        if(diaPersona > 31){
-            JOptionPane.showMessageDialog(null,"error dia invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            pedirDatos(ar); 
-        }
-        personas.put(cedula, new Persona(cedula, nombrePersona, apellidoPersona, diaPersona, mesPersona, añoPersona));
-
         
+        String aux = JOptionPane.showInputDialog("\n Digite año de nacimiento Ej.(1990)\n");
+        int añoPersona = 0;
+        try {
+            añoPersona =  Integer.parseInt(aux);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Error año invalido", "Error", JOptionPane.ERROR_MESSAGE);
+            datoss(ar); 
+        }finally{
+            if((añoPersona<1000) ||(añoPersona>2001)){
+                JOptionPane.showMessageDialog(null,"Error año invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                datoss(ar); 
+            }
+        }
+        
+        String fecha = añoPersona+"/"+mesPersona+"/"+diaPersona;
+        SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy/MM/dd");
+        Date fecha_nacimientoPersona = null;
+        try {
+            fecha_nacimientoPersona = formatoDelTexto.parse(fecha);
+        } catch (ParseException ex) {
+            Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        personas.put(cedula, new Persona(cedula, nombrePersona, apellidoPersona, fecha_nacimientoPersona));
+
     }
     public void pedirDatos(String ar[]){
         boolean ban=true;
