@@ -15,9 +15,11 @@ import java.util.Scanner;
 /**
  *
  * @author gabrielccgg
+ * @author juan c pardo
  */
 public class Logica {
     int totalventas = 0;
+    int opcion=0;
     int n;
     int val=0;
     int size1=10;
@@ -32,7 +34,7 @@ public class Logica {
     String vuelo1 ="Avion Grande mixto";
     String vuelo2 ="Avion Mediano comercial";
     String vuelo3 ="Avioneta VIP";
-    int costoComercial =  200000;
+    int costoComercial = 200000;
     int costoVIP = 1000000;
     String txt_Cad;
     String txtRecibo;
@@ -161,12 +163,12 @@ public class Logica {
             pedirDatos(ar); 
         }
         String mesPersona = JOptionPane.showInputDialog("\n Digite mes de nacimiento, digite: \n" 
-                + "   enero\n   febrero \n"
-                + "   marzo\n   abril \n"
-                + "   mayo\n   junio\n"
-                + "   julio\n   agosto \n"
-                + "   septiembre\n   octubre \n"
-                + "   noviembre\n   diciembre \n");
+                + "    enero            febrero \n"
+                + "    marzo            abril \n"
+                + "    mayo             junio \n"
+                + "    julio            agosto \n"
+                + "    septiembre       octubre \n"
+                + "    noviembre        diciembre \n");
         
         if(!"enero".equals(mesPersona) && !"febrero".equals(mesPersona) && !"marzo".equals(mesPersona) && !"abril".equals(mesPersona) && !"mayo".equals(mesPersona) && !"junio".equals(mesPersona) && !"julio".equals(mesPersona) && !"agosto".equals(mesPersona) && !"septiembre".equals(mesPersona) && !"octubre".equals(mesPersona) && !"noviembre".equals(mesPersona) && !"diciembre".equals(mesPersona)){
             JOptionPane.showMessageDialog(null,"error mes invalido invalido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -180,7 +182,7 @@ public class Logica {
         personas.put(cedula, new Persona(cedula, nombrePersona, apellidoPersona, diaPersona, mesPersona, añoPersona));
 
         
-        int opcion = (int) Integer.parseInt(JOptionPane.showInputDialog("\n Seleccione avion \n" 
+        opcion = (int) Integer.parseInt(JOptionPane.showInputDialog("\n Seleccione avion \n" 
                 + "1. Avion grande mixto \n"
                 + "2. Avion Comercial \n"
                 + "3. Avion VIP \n"));
@@ -214,6 +216,8 @@ public class Logica {
                                 case 2:
                                     if (a != 0 ){
                                         JOptionPane.showMessageDialog(null, "las primeras 3 filas son VIP");
+                                        JOptionPane.showMessageDialog(null, "Cantidad de filas: " + size1 + "\nCantidad de columnas: "+ size11);
+                                        JOptionPane.showMessageDialog(null, "Precio comercial: " + costoComercial);
                                         escogerlugar2(avion1);
                                         archivador.txt_vuelo1();
                                         a = a-1;
@@ -258,6 +262,8 @@ public class Logica {
                                     archivador.txt_vuelo2();
                                     break; 
                                 case 2:
+                                    JOptionPane.showMessageDialog(null, "Precio comercial: " + costoComercial);
+                                    JOptionPane.showMessageDialog(null, "Cantidad de filas: " + size2 + "\nCantidad de columnas: "+ size21);
                                     if (a != 0 ){
                                         escogerlugar1(avion2);
                                         archivador.txt_vuelo2();
@@ -298,6 +304,8 @@ public class Logica {
                                     archivador.txt_vuelo3();
                                     break; 
                                 case 2:
+                                    JOptionPane.showMessageDialog(null, "Costo VIP: "+ costoVIP);
+                                    JOptionPane.showMessageDialog(null, "Cantidad de filas: " + size3 + "\nCantidad de columnas: "+ size31);
                                     if (a != 0 ){
                                         escogerlugar1(avion3);
                                         archivador.txt_vuelo3();
@@ -340,7 +348,7 @@ public class Logica {
     }
     
     public void displayavionn(char mat[][]) {
-        String cad = "       Cabeza avión \n";
+        String cad = "    Cabeza avión \n";
         for (int i = 0; i < mat.length ; i++)  {
             for (int j = 0; j < mat[i].length; j++) {
                 cad +=  mat[i][j] + "     ";
@@ -352,11 +360,28 @@ public class Logica {
         JOptionPane.showMessageDialog(null, cad);
     }
     public char [][] escogerlugar1(char mat[][]){
-        
+        int fil=0;
+        int col=0;
+        if(opcion == 2){
+            fil = size2;
+            col= size21;
+        }
+        if(opcion == 3){
+            fil = size3;
+            col= size31;
+        }
         char matriz [][]=mat;
         do{
             int filaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar fila"));
+            while(filaa > fil){
+                JOptionPane.showMessageDialog(null, "fila inexistente");
+                filaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar fila"));
+            }
             int columnaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar columna"));
+            while(columnaa > col){
+                JOptionPane.showMessageDialog(null, "Columna inexistente");
+                columnaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar columna"));
+            }
             if(matriz [filaa - 1][columnaa-1]== 'X'){
                 JOptionPane.showMessageDialog(null, "Vuelve a seleccionar, ese lugar ya se encuentra ocupado");
             }else{
@@ -373,7 +398,15 @@ public class Logica {
         char matriz [][]=mat;
         do{
             int filaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar fila"));
+            while(filaa > size1){
+                JOptionPane.showMessageDialog(null, "fila inexistente");
+                filaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar fila"));
+            }
             int columnaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar columna"));
+            while(columnaa > size11){
+                JOptionPane.showMessageDialog(null, "Columna inexistente");
+                columnaa =(int) Integer.parseInt(JOptionPane.showInputDialog("Seleccionar columna"));
+            }
             if(matriz [filaa - 1][columnaa-1]== 'X'){
                 JOptionPane.showMessageDialog(null, "Vuelve a seleccionar, ese lugar ya se encuentra ocupado");
             }else{
@@ -390,19 +423,21 @@ public class Logica {
     }
     
     public void mostrarTexto(String cad, String Vuelo) {
-        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total: $"+costoComercial*n);
+        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total:"+costoComercial*n);
         cantidad =cad;
         vuelo1 =Vuelo;
-        totalPagar =(costoComercial*n);
+        totalPagar =costoComercial*n;
         txtRecibo =cantidad +","+Vuelo+","+totalPagar;
-        totalventas = (totalventas + totalPagar); 
+        totalventas = totalventas + totalPagar; 
     }
     public void mostrarTexto2(String cad, String Vuelo) {
-        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total: $"+costoVIP*n);
+        JOptionPane.showMessageDialog(null,"Avion: "+Vuelo+"\n Boletos: "+cad+"\n Total:"+costoVIP*n);
         cantidad =cad;
         vuelo1 =Vuelo;
         totalPagar =costoVIP*n;
         txtRecibo =cantidad +","+Vuelo+","+totalPagar;
-        totalventas = (totalventas + totalPagar);
+        totalventas = totalventas + totalPagar; 
+        
+        
     }
 }
